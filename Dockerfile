@@ -1,8 +1,7 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 
 RUN apt-get update \
-  && sudo apt-get install -y software-properties-common \
-  && add-apt-repository ppa:george-edison55/cmake-3.x \
+  && apt-get install -y software-properties-common \
   && apt-get update \
   && apt-get install -y \
                 build-essential \
@@ -19,10 +18,6 @@ RUN apt-get update \
 
 # Pin to 1.4
 RUN git clone -b v1.4 --recursive https://github.com/openMVG/openMVG.git
-
-# Adds Mavic Pro sensor to sensor database 
-# (workaround until merge of https://github.com/openMVG/openMVG/pull/763)
-RUN echo 'FC220;6.17' >> ./openMVG/src/openMVG/exif/sensor_width_database/sensor_width_camera_database.txt
 
 RUN mkdir /openMVG_Build
 WORKDIR /openMVG_Build
